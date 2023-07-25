@@ -20,7 +20,7 @@ def LinkedHashMap getWorkflowRunInfo() {
     return [
         kind: 'workflowRun',
         metadata: [
-            agent: buildAgent,
+            agent: 'docker',
             displayName: currentBuild.displayName,
             duration: currentBuild.duration,
             failedAt: '',
