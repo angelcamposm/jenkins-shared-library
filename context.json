@@ -1,0 +1,184 @@
+{
+    "kind": "WorkflowRunEnvelope",
+    "version": "v1",
+    "data": [
+        {
+            "kind": "workflowRun",
+            "metadata": {
+                "agent": "kubernetes",
+                "displayName": "ecommerce/error-handling-web",
+                "duration": 0,
+                "failedAt": "",
+                "id": "#53",
+                "launchedAt": 1686142325328,
+                "launchedBy": "mcvlieri",
+                "name": "error-handling-web",
+                "number": "#21",
+                "parameters": "{ENTORNO=DES, RAMA=develop, DEBUG=false}",
+                "result": "SUCCESS",
+                "server": "jenkins-devops",
+                "url": "https://jenkins-devops.apps.opdespmi.local/job/ecommerce/job/error-handling-web/21/",
+                "waitTime": 635
+            }
+        },
+        {
+            "kind": "workflowRunPod",
+            "metadata": {
+                "name": "dsi-ecommerce-error-handling-web-21-1f58h-05358-q8xnj",
+                "template": "nodejs16-builder"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "node",
+                        "image": "registry-pmi.local/devops/node:16.19.1-alpine3.17-ca",
+                        "resources": {
+                            "limits": {
+                                "memory": "4Gi"
+                            },
+                            "requests": {
+                                "memory": "4Gi"
+                            }
+                        }
+                    },
+                    {
+                        "name": "oc",
+                        "image": "registry-pmi.local/devops/oc:1.7.1",
+                        "resources": {
+                            "limits": {
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "memory": "256Mi"
+                            }
+                        }
+                    },
+                    {
+                        "name": "sonarqube",
+                        "image": "registry-pmi.local/devops/sonar-scanner-cli:4.7.0",
+                        "resources": {
+                            "limits": {
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "memory": "1Gi"
+                            }
+                        }
+                    },
+                    {
+                        "name": "jnlp",
+                        "image": "registry-pmi.local/jenkins/inbound-agent:4.11-1-jdk11",
+                        "resources": {
+                            "limits": {
+                                "memory": "512Mi"
+                            },
+                            "requests": {
+                                "memory": "256Mi"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "SoftwareBillOfMaterials",
+            "metadata": {
+                "app": "",
+                "type": "cyclone-dx",
+                "version": ""
+            },
+            "data": {
+                "file": {
+                    "digest": "7bcd2ee44f9b4293ffe4b26fc0795520b84e5173b68ea62850cbb2dabbb1cfde",
+                    "name": "sbom.json",
+                    "sha": 256,
+                    "size": ""
+                },
+                "project": {
+                    "name": "error-handling-web",
+                    "version": "0.2.0"
+                }
+            }
+        },
+        {
+            "kind": "SoftwareCompositionAnalysis",
+            "metadata": {
+                "authentication": {
+                    "credentials": "DTrack-Automation"
+                },
+                "url": "http://bapmidessca01.local:8080"
+            },
+            "data": {
+                "project": {
+                    "name": "",
+                    "uuid": ""
+                }
+            }
+        },
+        {
+            "kind": "StaticApplicationSecurityTesting",
+            "metadata": {
+                "authentication": {
+                    "credentials": "SONARQUBE_TOKEN"
+                },
+                "url": "https://sonarqube.apps.opdespmi.local"
+            },
+            "data": {
+                "hasCodeCoverage": false,
+                "hasTests": false,
+                "project": "error-handling-web",
+                "qualityGate": {
+                    "wait": "true"
+                }
+            }
+        },
+        {
+            "kind": "ArtifactRepository",
+            "metadata": {
+                "authentication": {
+                    "credentials": ""
+                },
+                "name": ""
+            }
+        },
+        {
+            "kind": "ContainerRegistry",
+            "metadata": {
+                "authentication": {
+                    "credentials":  ""
+                },
+                "name": "registry-pmi"
+            },
+            "data": {
+                "kind": "Image Stream",
+                "registry": "image-registry.openshift-image-registry.svc:5000",
+                "organization": "ecom-error-handling-web-dev",
+                "repository": "error-handling-web",
+                "tag": "0.2.0"
+            }
+        },
+        {
+            "kind": "Build",
+            "metadata": {}
+        },
+        {
+            "kind": "Deployment",
+            "metadata": {}
+        },
+        {
+            "kind":  "Git",
+            "metadata": {
+                "author": {
+                    "name": "mcvlieri",
+                    "email": "",
+                    "mail": "mcvlieri@local"
+                },
+                "branch": "* (HEAD detached at d3badf4)",
+                "date": "Wed, 7 Jun 2023 12:53:18 +0200",
+                "id": "d3badf44a451f54003a813a3dbf9d262a5ce210e",
+                "message": "Merge branch feature53517UIERRORESWEBhtml into develop",
+                "ref": "HEAD, origin/develop"
+            }
+        }
+    ]
+}
