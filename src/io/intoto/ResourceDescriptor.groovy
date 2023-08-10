@@ -86,7 +86,7 @@ def String getTimestamp() {
     if (timestamp == 0) {
         timestamp = sh(
             label: 'Get file Access date.',
-            script: "stat -c%X ${fileName}",
+            script: "stat -c%X ${resourceName}",
             returnStdout: true
         ).trim().toInteger()
     }
