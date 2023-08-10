@@ -6,7 +6,7 @@ def LinkedHashMap rsd = [:]
 
 def String resourceName = ''
 
-def LinkedHashMap from(String fileName) {
+def from(String fileName) {
 
     resourceName = fileName
 
