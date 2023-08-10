@@ -17,9 +17,9 @@ def Void file(String fileName) {
     resourceDescriptor.put('digest', getDigestSet())
 
     if (sh(script: 'which file || echo "N/A"', returnStdout: true).trim().toString() == 'N/A') {
-        resourceDescriptor.put('mediaType', getMediaType())
-    } else {
         println('`file` command not found. Skipping mediaType check.')
+    } else {
+        resourceDescriptor.put('mediaType', getMediaType())
     }
     
     resourceDescriptor.put('createdAt', getTimestamp())
