@@ -10,10 +10,14 @@ def Void initialize(String fileName) {
 
     resourceName = fileName
 
-    rsd.put('name', fileName)
-    rsd.put('size', getFileSize())
-    rsd.put('digest', getDigestSet())
-    rsd.put('createdAt', getTimestamp())
+    def LinkedHashMap resourceDescriptor = [:]
+
+    resourceDescriptor.put('name', fileName)
+    resourceDescriptor.put('size', getFileSize())
+    resourceDescriptor.put('digest', getDigestSet())
+    resourceDescriptor.put('createdAt', getTimestamp())
+
+    rsd = resourceDescriptor
 }
 
 def LinkedHashMap getDigestSet() {
