@@ -16,7 +16,7 @@ def Void file(String fileName) {
     resourceDescriptor.put('size', getFileSize())
     resourceDescriptor.put('digest', getDigestSet())
 
-    if (sh(script: 'which file || echo "N/A"', returnStdout: true).trim().toString() == 'N/A') {
+    if (sh(script: 'which file || echo "NotFound"', returnStdout: true).trim().toString() == 'NotFound') {
         println('`file` command not found. Skipping mediaType check.')
     } else {
         resourceDescriptor.put('mediaType', getMediaType())
