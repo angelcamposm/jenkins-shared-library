@@ -70,7 +70,7 @@ def String getSha512Sum() {
 def Integer getFileSize() {
     return sh(
         label: 'Get file size in bytes.',
-        script: "stat -c%s ${resourceName}",
+        script: "stat --format=%s ${resourceName}",
         returnStdout: true
     ).trim().toInteger()
 }
@@ -79,14 +79,14 @@ def String getTimestamp() {
 
     def Integer timestamp = sh(
         label: 'Get file Birth date.',
-        script: "stat -c%W ${resourceName}",
+        script: "stat --format=%W ${resourceName}",
         returnStdout: true
     ).trim().toInteger()
     
     if (timestamp == 0) {
         timestamp = sh(
             label: 'Get file Access date.',
-            script: "stat -c%X ${resourceName}",
+            script: "stat --format=%X ${resourceName}",
             returnStdout: true
         ).trim().toInteger()
     }
