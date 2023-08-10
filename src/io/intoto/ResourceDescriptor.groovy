@@ -6,7 +6,7 @@ def LinkedHashMap rsd = [:]
 
 def String resourceName = ''
 
-def Void initialize(String fileName) {
+def Void file(String fileName) {
 
     resourceName = fileName
 
@@ -92,6 +92,7 @@ def String getTimestamp() {
     }
 
     return sh(
+        label: 'Convert epoch timestamp to RFC3339.',
         script: "date --date=@${timestamp} +%Y-%m-%dT%H:%M:%S.%sZ",
         returnStdout: true
     ).trim().toString()
