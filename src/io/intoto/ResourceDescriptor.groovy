@@ -15,6 +15,13 @@ def Void file(String fileName) {
     resourceDescriptor.put('name', fileName)
     resourceDescriptor.put('size', getFileSize())
     resourceDescriptor.put('digest', getDigestSet())
+
+    if (sh(script: 'which file || echo "N/A"', returnStdout: true).trim().toString() == 'N/A') {
+        resourceDescriptor.put('mediaType', getMediaType())
+    } else {
+        println('`file` command not found. Skipping mediaType check.')
+    }
+    
     resourceDescriptor.put('createdAt', getTimestamp())
 
     rsd = resourceDescriptor
@@ -73,6 +80,15 @@ def Integer getFileSize() {
         script: "stat --format=%s ${resourceName}",
         returnStdout: true
     ).trim().toInteger()
+}
+
+def String getMediaType() {
+    return sh(
+        label: 'Get MIME type.',
+        script: "file -b --mime-type ${resourceName}",
+        returnStdout: true,
+        encoding: 'UTF-8'
+    ).trim().toString()
 }
 
 def String getTimestamp() {
