@@ -2,6 +2,17 @@ package io.intoto
 
 import groovy.json.JsonOutput
 
+/*
+ | ----------------------------------------------------------------------------
+ | Resource Descriptor
+ | ----------------------------------------------------------------------------
+ | A size-efficient description of any software artifact or resource (mutable 
+ | or immutable).
+ |
+ | For more information, please visit: 
+ | - https://github.com/in-toto/attestation/blob/main/spec/v1/resource_descriptor.md
+ */
+
 def LinkedHashMap rsd = [:]
 
 def String resourceName = ''
@@ -27,6 +38,11 @@ def Void file(String fileName) {
     rsd = resourceDescriptor
 }
 
+/**
+ * A set of cryptographic digests of the contents of the resource or artifact.
+ *
+ * @return LinkedHashMap
+ */
 def LinkedHashMap getDigestSet() {
     def LinkedHashMap digestSet = [:]
 
