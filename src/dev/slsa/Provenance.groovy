@@ -54,6 +54,10 @@ def LinkedHashMap getInternalParameters() {
     return parameters
 }
 
+def LinkedHashMap get() {
+    return provenance
+}
+
 def Void print() {
     println(JsonOutput.prettyPrint(toJson()))
 }
