@@ -38,56 +38,13 @@ def Void file(String fileName) {
     rsd = resourceDescriptor
 }
 
-/**
- * A set of cryptographic digests of the contents of the resource or artifact.
- *
- * @return LinkedHashMap
- */
 def LinkedHashMap getDigestSet() {
-    def LinkedHashMap digestSet = [:]
 
-    digestSet.put('md5', getMd5Sum())
-    digestSet.put('sha1', getSha1Sum())
-    digestSet.put('sha256', getSha256Sum())
-    digestSet.put('sha512', getSha512Sum())
+    def DigestSet digestSet = new io.intoto.DigestSet()
 
-    return digestSet
-}
+    digestset.construct()
 
-def String getMd5Sum() {
-    return sh(
-        label: 'Get MD5 (128-bit) checksums.',
-        script: "md5sum ${resourceName} | awk '{print \$1}'",
-        returnStdout: true,
-        encoding: 'UTF-8'
-    ).trim().toString()
-}
-
-def String getSha1Sum() {
-    return sh(
-        label: 'Get SHA1 (160-bit) checksums.', 
-        script: "sha1sum ${resourceName} | awk '{print \$1}'", 
-        returnStdout: true,
-        encoding: 'UTF-8'
-    ).trim().toString()
-}
-
-def String getSha256Sum() {
-    return sh(
-        label: 'Get SHA256 (256-bit) checksums.', 
-        script: "sha256sum ${resourceName} | awk '{print \$1}'", 
-        returnStdout: true,
-        encoding: 'UTF-8'
-    ).trim().toString()
-}
-
-def String getSha512Sum() {
-    return sh(
-        label: 'Get SHA512 (512-bit) checksums.', 
-        script: "sha512sum ${resourceName} | awk '{print \$1}'", 
-        returnStdout: true,
-        encoding: 'UTF-8'
-    ).trim().toString()
+    return digestSet.get()
 }
 
 def Integer getFileSize() {
