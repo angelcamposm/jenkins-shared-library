@@ -39,6 +39,10 @@ def Void print() {
     println(JsonOutput.prettyPrint(toJson()))
 }
 
+def String toBase64() {
+    return toJson().bytes.encodeBase64().toString()
+}
+
 def String toJson() {
     return JsonOutput.toJson(statement)
 }
