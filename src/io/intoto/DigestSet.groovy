@@ -2,14 +2,24 @@ package io.intoto
 
 import groovy.json.JsonOutput
 
+/*
+ | ----------------------------------------------------------------------------
+ | Digest Set
+ | ----------------------------------------------------------------------------
+ | A set of cryptographic digests of the contents of the resource or artifact.
+ |
+ | Supported algorithms:
+ | sha256, sha224, sha384, sha512, sha512_224, sha512_256, sha3_224, sha3_256, 
+ | sha3_384, sha3_512, shake128, shake256, blake2b, blake2s, ripemd160, sm3, 
+ | gost, sha1, md5
+ |
+ | For more information, please visit: 
+ | - https://github.com/in-toto/attestation/blob/main/spec/v1/digest_set.md
+ */
+
 def LinkedHashMap digestSet = [:]
 def String resourceName = ''
 
-/**
- * A set of cryptographic digests of the contents of the resource or artifact.
- *
- * @return LinkedHashMap
- */
 def Void construct(String fileName) {
 
     resourceName = fileName
