@@ -24,13 +24,13 @@ def Void addSubject(LinkedHashMap subject) {
 }
 
 def Void print() {
-    println(JsonOutput.prettyPrint(this.toJson()))
+    println(JsonOutput.prettyPrint(toJson()))
 }
 
 def String toJson() {
-    return JsonOutput.toJson(this.payload)
+    return JsonOutput.toJson(statement)
 }
 
 def Void write() {
-    writeFile file: '', text: toJson()
+    writeFile file: 'statement.json', text: toJson()
 }
