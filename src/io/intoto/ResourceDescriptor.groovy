@@ -40,11 +40,11 @@ def Void file(String fileName) {
 
 def LinkedHashMap getDigestSet() {
 
-    def DigestSet digestSet = new io.intoto.DigestSet()
+    def DigestSet ds = new io.intoto.DigestSet()
 
-    digestset.construct(resourceName)
+    ds.construct(resourceName)
 
-    return digestSet.get()
+    return ds.get()
 }
 
 def Integer getFileSize() {
