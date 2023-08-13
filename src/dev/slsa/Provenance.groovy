@@ -25,7 +25,7 @@ def Void construct() {
     payload.runDetails.builder.put('version', '')
     
     payload.runDetails.metadata.put('invocationId', 0)
-    payload.runDetails.metadata.put(startedOn, getStartTimestamp())
+    payload.runDetails.metadata.put('startedOn', getStartTimestamp())
     payload.runDetails.metadata.put('finishedOn', '')    
 
     provenance = payload
