@@ -19,8 +19,8 @@ def Void addProvenance(LinkedHashMap provenance) {
     statement.put('predicate', provenance)
 }
 
-def Void addSubject(LinkedHashMap subject) {
-    statement.subject.add(subject)
+def Void addSubject(ResourceDescriptor subject) {
+    statement.subject.add(subject.get())
 }
 
 def Void print() {
