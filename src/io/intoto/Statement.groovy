@@ -24,7 +24,7 @@ def Void addSubject(LinkedHashMap subject) {
 }
 
 def Void print() {
-    println(JsonOutput.prettyPrint(this.toJson())
+    println(JsonOutput.prettyPrint(this.toJson()))
 }
 
 def String toJson() {
