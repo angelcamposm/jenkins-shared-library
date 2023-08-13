@@ -2,6 +2,18 @@ package io.intoto
 
 import groovy.json.JsonOutput
 
+/*
+ | ----------------------------------------------------------------------------
+ | Statement
+ | ----------------------------------------------------------------------------
+ | The Statement is the middle layer of the attestation, binding it to a 
+ | particular subject and unambiguously identifying the types of the Predicate.
+ |
+ | For more information, please visit: 
+ | - https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md
+ |
+ */
+
 def LinkedHashMap statement = [:]
 
 def Void construct() {
