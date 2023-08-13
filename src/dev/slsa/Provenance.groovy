@@ -45,13 +45,13 @@ def String getStartTimestamp() {
 
 def LinkedHashMap getInternalParameters() {
     
-    def LinkedHashMap internalParameters = [:]
+    def LinkedHashMap parameters = [:]
 
     for (item in params) {
-        internalParameters.put(item.getKey(), item.getValue())
+        parameters.put(item.getKey(), item.getValue())
     }
 
-    return internalParameters
+    return parameters
 }
 
 def Void print() {
