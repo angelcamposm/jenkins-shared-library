@@ -1,5 +1,7 @@
 package dev.slsa
 
+import groovy.json.JsonOutput
+
 def LinkedHashMap provenance = [:]
 
 def Void construct() {
