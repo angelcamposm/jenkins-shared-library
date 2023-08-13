@@ -16,8 +16,9 @@ def Void construct() {
     envelope = payload
 }
 
-def Void addPayload(Statement statement) {
-    envelope.payload = statement.toJson().bytes.encodeBase64().toString()
+def Void addInTotoStatement(Statement statement) {
+    envelope.payload = statement.toBase64()
+    envelope.payloadType = 'application/vnd.in-toto+json'
 }
 
 def String getPayload() {
