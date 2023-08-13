@@ -53,7 +53,7 @@ def LinkedHashMap getInternalParameters() {
 }
 
 def Void print() {
-    println(JsonOutput.prettyPrint(toJson())
+    println(JsonOutput.prettyPrint(toJson()))
 }
 
 def String toJson() {
