@@ -47,6 +47,10 @@ def LinkedHashMap getDigestSet() {
     return ds.get()
 }
 
+def Void setDigestSet(DigestSet ds) {
+    rsd.digest = ds.get()
+}
+
 def Integer getFileSize() {
     return sh(
         label: 'Get file size in bytes.',
