@@ -3,13 +3,16 @@ package io.intoto
 import groovy.json.JsonOutput
 
 def LinkedHashMap digestSet = [:]
+def String resourceName = ''
 
 /**
  * A set of cryptographic digests of the contents of the resource or artifact.
  *
  * @return LinkedHashMap
  */
-def Void construct() {
+def Void construct(String fileName) {
+
+    resourceName = fileName
 
     def LinkedHashMap payload = [:]
 

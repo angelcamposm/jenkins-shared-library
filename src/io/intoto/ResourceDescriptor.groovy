@@ -42,7 +42,7 @@ def LinkedHashMap getDigestSet() {
 
     def DigestSet digestSet = new io.intoto.DigestSet()
 
-    digestset.construct()
+    digestset.construct(resourceName)
 
     return digestSet.get()
 }
