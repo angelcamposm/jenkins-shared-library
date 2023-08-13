@@ -14,6 +14,8 @@ def Void construct() {
     payload.buildDefinition.put('internalParameters', [:])
     payload.buildDefinition.put('resolvedDependencies', [])
     
+    payload.buildDefinition.internalParameters = getInternalParameters()
+
     payload.runDetails.put('builder', [:])
     payload.runDetails.put('metadata', [:])
     payload.runDetails.put('byproducts', [])
@@ -24,8 +26,8 @@ def Void construct() {
     
     payload.runDetails.metadata.put('invocationId', 0)
     payload.runDetails.metadata.put(startedOn, getStartTimestamp())
-    payload.runDetails.metadata.put('finishedOn', '')
-    
+    payload.runDetails.metadata.put('finishedOn', '')    
+
     provenance = payload
 }
 
@@ -39,10 +41,16 @@ def String getStartTimestamp() {
 }
 
 
+def LinkedHashMap getInternalParameters() {
+    
+    def LinkedHashMap internalParameters = [:]
 
+    for (item in params) {
+        internalParameters.put(item.getKey(), item.getValue())
+    }
 
-
-
+    return internalParameters
+}
 
 def Void print() {
     println(JsonOutput.prettyPrint(toJson())
