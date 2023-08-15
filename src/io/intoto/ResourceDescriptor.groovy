@@ -70,25 +70,21 @@ def String getMediaType() {
 
 def String getTimestamp() {
 
-    def Integer timestamp = sh(
+    def Long timestamp = sh(
         label: 'Get file Birth date.',
         script: "stat --format=%W ${resourceName}",
         returnStdout: true
-    ).trim().toInteger()
+    ).trim().toLong()
     
     if (timestamp == 0) {
         timestamp = sh(
             label: 'Get file Access date.',
             script: "stat --format=%X ${resourceName}",
             returnStdout: true
-        ).trim().toInteger()
+        ).trim().toLong()
     }
 
-    return sh(
-        label: 'Convert epoch timestamp to RFC3339.',
-        script: "date --date=@${timestamp} +%Y-%m-%dT%H:%M:%S.%sZ",
-        returnStdout: true
-    ).trim().toString()
+    return Timestamp.fromSeconds(timestamp)
 }
 
 def LinkedHashMap get() {
