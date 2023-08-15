@@ -9,6 +9,10 @@ class Timestamp {
     static String fromMilliseconds(Long millis) {
         return toString(new Date(millis))
     }
+    
+    static String fromSeconds(Long seconds) {
+        return toString(new Date(seconds * 1000))
+    }
 
     static String get() {
         return toString(new Date())
