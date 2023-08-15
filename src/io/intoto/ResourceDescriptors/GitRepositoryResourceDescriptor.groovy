@@ -1,5 +1,7 @@
 package io.intoto.ResourceDescriptors
 
+import groovy.json.JsonOutput
+
 def String gitBranch = 'master'
 def LinkedHashMap resourceDescriptor = [:]
 
@@ -64,4 +66,16 @@ def Void setBranch(String branch) {
 
 def Void setName(String name) {
     resourceDescriptor.name = name
+}
+
+def LinkedHashMap get() {
+    return resourceDescriptor
+}
+
+def Void print() {
+    println(JsonOutput.prettyPrint(toJson()))
+}
+
+def String toJson() {
+    return JsonOutput.toJson(resourceDescriptor)
 }
