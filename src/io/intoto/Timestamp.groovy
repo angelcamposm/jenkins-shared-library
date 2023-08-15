@@ -1,14 +1,20 @@
 package io.intoto
 
+import java.util.Date
+
 class Timestamp {
 
+    static final FORMAT = "yyyy-MM-dd'T'HH:m:ss"
+
     static String fromMilliseconds(Long millis) {
-        def String startTime = new Date(millis).format("yyyy-MM-dd'T'h:m:ss.SSS")
-        return "${startTime}Z"
+        return toString(new Date(millis))
     }
 
     static String get() {
-        def String startTime = new Date().format("yyyy-MM-dd'T'h:m:ss.SSS")
-        return "${startTime}Z"
+        return toString(new Date())
+    }
+    
+    static String toString(Date date) {
+        return "${date.format(FORMAT)}Z"
     }
 }
