@@ -9,6 +9,8 @@ def ResourceDescriptor resourceDescriptor = new io.intoto.ResourceDescriptor()
 def Void construct() {
 
     resourceDescriptor = new ResourceDescriptor()
+
+    resourceDescriptor
         .name(getBranchNameFromParams())
         .digest([
             gitCommit: getGitCommit()
