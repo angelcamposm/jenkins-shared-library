@@ -54,6 +54,10 @@ def LinkedHashMap getInternalParameters() {
     return parameters
 }
 
+def Void addBuilderDependency(LinkedHashMap dependency) {
+    provenance.buildDefinition.resolvedDependencies.add(dependency)
+}
+
 def LinkedHashMap get() {
     return provenance
 }
