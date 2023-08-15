@@ -16,7 +16,7 @@ class ResourceDescriptor {
         return this
     }
 
-    def ResourceDescriptors annotations(LinkedHashMap annotations) {
+    def ResourceDescriptor annotations(LinkedHashMap annotations) {
         this.assign('annotations', annotations)
         return this
     }
