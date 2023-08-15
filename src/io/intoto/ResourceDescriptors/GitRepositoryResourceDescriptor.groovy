@@ -54,6 +54,10 @@ def String getGitRemoteUrl() {
         encoding: 'UTF-8'
     ).trim().toString()
 
+    if (remote.startsWith('git@')) {
+        return remote
+    }
+
     return "git+${remote}"
 }
 
