@@ -1,6 +1,7 @@
 package dev.slsa
 
 import groovy.json.JsonOutput
+import io.intoto.ResourceDescriptor
 import io.intoto.Timestamp
 
 def LinkedHashMap provenance = [:]
@@ -57,8 +58,8 @@ def LinkedHashMap getInternalParameters() {
     return parameters
 }
 
-def Void addBuilderDependency(LinkedHashMap dependency) {
-    provenance.buildDefinition.resolvedDependencies.add(dependency)
+def Void addBuilderDependency(ResourceDescriptor dependency) {
+    provenance.buildDefinition.resolvedDependencies.add(dependency.get())
 }
 
 def Void finish() {
