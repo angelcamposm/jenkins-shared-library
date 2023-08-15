@@ -1,19 +1,17 @@
 package io.intoto.ResourceDescriptors
 
 import groovy.json.JsonOutput
+import io.intoto.ResourceDescriptor
 
 def String gitBranch = 'master'
-def LinkedHashMap resourceDescriptor = [:]
+def ResourceDescriptor resourceDescriptor = new io.intoto.ResourceDescriptor()
 
 def Void construct() {
 
-    def LinkedHashMap payload = [:]
-
-    payload.put('name', getBranchNameFromParams())
-    payload.put('digest', getGitCommit())
-    payload.put('uri', getGitRemoteUrl())
-
-    resourceDescriptor = payload
+    resourceDescriptor
+        .name(getBranchNameFromParams())
+        .digest([gitCommit: getGitCommit()])
+        .uri(getGitRemoteUrl())
 }
 
 def String cleanBranchName(String branch) {
@@ -64,30 +62,21 @@ def String getGitRemoteUrl() {
 }
 
 def Void addAnnotation(String key, value) {
-
-    if (!resourceDescriptor.containsKey('annotations')) {
-        resourceDescriptor.put('annotations', [:])
-    }
-
-    resourceDescriptor.annotations.put(key, value)
-}
-
-def Void setBranch(String branch) {
-    gitBranch = cleanBranchName(branch)
+    resourceDescriptor.addAnnotation(key, value)
 }
 
 def Void setName(String name) {
-    resourceDescriptor.name = name
+    resourceDescriptor.name(name)
 }
 
-def LinkedHashMap get() {
+def ResourceDescriptor get() {
     return resourceDescriptor
 }
 
 def Void print() {
-    println(JsonOutput.prettyPrint(toJson()))
+    resourceDescriptor.print()
 }
 
 def String toJson() {
-    return JsonOutput.toJson(resourceDescriptor)
+    return resourceDescriptor.toJson()
 }
