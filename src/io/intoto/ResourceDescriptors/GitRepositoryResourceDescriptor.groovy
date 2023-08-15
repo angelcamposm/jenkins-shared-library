@@ -1,9 +1,7 @@
 package io.intoto.ResourceDescriptors
 
-import groovy.json.JsonOutput
 import io.intoto.ResourceDescriptor
 
-def String gitBranch = 'master'
 def ResourceDescriptor resourceDescriptor = new io.intoto.ResourceDescriptor()
 
 def Void construct() {
