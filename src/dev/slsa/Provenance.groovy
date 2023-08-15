@@ -1,6 +1,7 @@
 package dev.slsa
 
 import groovy.json.JsonOutput
+import io.intoto.Timestamp
 
 def LinkedHashMap provenance = [:]
 
@@ -42,10 +43,8 @@ def String getInvocationId() {
 }
 
 def String getStartTimestamp() {
-    def String startTime = new Date(currentBuild.startTimeInMillis).format("yyyy-MM-dd'T'h:m:ss.SSS")
-    return "${startTime}Z"
+    return Timestamp.fromMilliseconds(currentBuild.startTimeInMillis)
 }
-
 
 def LinkedHashMap getInternalParameters() {
     
@@ -60,6 +59,10 @@ def LinkedHashMap getInternalParameters() {
 
 def Void addBuilderDependency(LinkedHashMap dependency) {
     provenance.buildDefinition.resolvedDependencies.add(dependency)
+}
+
+def Void finish() {
+    provenance.runDetails.metadata.finishedOn = Timestamp.get()
 }
 
 def LinkedHashMap get() {
