@@ -2,7 +2,7 @@ package io.intoto
 
 class Timestamp {
 
-    static String fromMilliseconds(Integer millis) {
+    static String fromMilliseconds(Long millis) {
         def String startTime = new Date(millis).format("yyyy-MM-dd'T'h:m:ss.SSS")
         return "${startTime}Z"
     }
