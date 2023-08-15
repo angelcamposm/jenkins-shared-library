@@ -7,11 +7,20 @@ def Void construct() {
 
     def LinkedHashMap payload = [:]
 
-    payload.put('name', 'git')
+    payload.put('name', getBranchNameFromParams())
     payload.put('digest', getGitCommit())
     payload.put('uri', getGitRemoteUrl())
 
     resourceDescriptor = payload
+}
+
+def String getBranchNameFromParams() {
+
+    if (params.BRANCH) {
+        return params.BRANCH.contains('*/') ? params.BRANCH.replace('*/') : params.BRANCH
+    }
+
+    return 'git'
 }
 
 def LinkedHashMap getGitCommit() {
