@@ -26,7 +26,7 @@ def Void construct() {
     payload.runDetails.builder.put('builderDependencies', [])
     payload.runDetails.builder.put('version', '')
     
-    payload.runDetails.metadata.put('invocationId', currentBuild.getNumber())
+    payload.runDetails.metadata.put('invocationId', getInvocationId())
     payload.runDetails.metadata.put('startedOn', getStartTimestamp())
     payload.runDetails.metadata.put('finishedOn', '')    
 
@@ -35,6 +35,10 @@ def Void construct() {
 
 def String getBuilderId() {
     return "${env.BUILD_URL}"
+}
+
+def String getInvocationId() {
+    return "#${currentBuild.getNumber()}"
 }
 
 def String getStartTimestamp() {
