@@ -16,10 +16,16 @@ def Void construct() {
     resourceDescriptor = payload
 }
 
+def String cleanBranchName(String branch) {
+    return branch.contains('*/') 
+        ? branch.replace('*/', '') 
+        : branch
+}
+
 def String getBranchNameFromParams() {
 
     if (params.BRANCH) {
-        return params.BRANCH.contains('*/') ? params.BRANCH.replace('*/') : params.BRANCH
+        return cleanBranchName(params.BRANCH)
     }
 
     return 'git'
@@ -61,7 +67,7 @@ def Void addAnnotation(String key, value) {
 }
 
 def Void setBranch(String branch) {
-    gitBranch = branch.contains('*/') ? branch.replace('*/') : branch
+    gitBranch = cleanBranchName(branch)
 }
 
 def Void setName(String name) {
