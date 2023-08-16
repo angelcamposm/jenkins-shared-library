@@ -3,9 +3,12 @@ package io.intoto.ResourceDescriptors
 import io.intoto.DigestSet
 import io.intoto.ResourceDescriptor
 
+def String resourceName = ''
 def ResourceDescriptor resourceDescriptor = null
 
 def Void file(String fileName) {
+
+    resourceName = fileName
 
     resourceDescriptor = new ResourceDescriptor()
 
