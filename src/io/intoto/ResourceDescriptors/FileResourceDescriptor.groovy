@@ -1,5 +1,6 @@
 package io.intoto.ResourceDescriptors
 
+import io.intoto.DigestSet
 import io.intoto.ResourceDescriptor
 
 def ResourceDescriptor resourceDescriptor = null
