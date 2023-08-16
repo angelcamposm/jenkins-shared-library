@@ -43,6 +43,10 @@ def String getInvocationId() {
     return "#${currentBuild.getNumber()}"
 }
 
+def String getProvenanceName() {
+    return "${env.JOB_BASE_NAME}-${currentBuild.getNumber()}provenance.json"
+}
+
 def String getStartTimestamp() {
     return Timestamp.fromMilliseconds(currentBuild.startTimeInMillis)
 }
@@ -84,5 +88,5 @@ def Void write(Boolean pretty = true) {
         ? JsonOutput.prettyPrint(toJson())
         : toJson()
 
-    writeFile encoding: 'UTF-8', file: 'provenance.json', text: payload
+    writeFile encoding: 'UTF-8', file: getProvenanceName(), text: payload
 }
