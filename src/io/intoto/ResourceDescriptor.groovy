@@ -23,7 +23,7 @@ class ResourceDescriptor {
 
     def ResourceDescriptor addAnnotation(String key, value) {
         this.assign('annotations', [:])
-        this.annotations.put(key, value)
+        this.payload.annotations.put(key, value)
         return this
     }
 
@@ -63,7 +63,7 @@ class ResourceDescriptor {
     }
 
     def Void assign(String key, value) {
-        if (this.payload.containsKey(key)) {
+        if (this.payload.containsKey(key) && key != 'annotations') {
             this.payload."$key" = value
         } else {
             this.payload.put(key, value)
