@@ -2,6 +2,7 @@ package io.intoto.ResourceDescriptors
 
 import io.intoto.DigestSet
 import io.intoto.ResourceDescriptor
+import io.intoto.Timestamp
 
 def String resourceName = ''
 def ResourceDescriptor resourceDescriptor = null
