@@ -4,7 +4,7 @@ import groovy.json.JsonOutput
 
 /*
  | ----------------------------------------------------------------------------
- | Digest Set
+ | DigestSet
  | ----------------------------------------------------------------------------
  | A set of cryptographic digests of the contents of the resource or artifact.
  |
