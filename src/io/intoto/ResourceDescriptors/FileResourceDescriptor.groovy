@@ -1,41 +1,24 @@
 package io.intoto.ResourceDescriptors
 
-import groovy.json.JsonOutput
+import io.intoto.ResourceDescriptor
 
-/*
- | ----------------------------------------------------------------------------
- | Resource Descriptor
- | ----------------------------------------------------------------------------
- | A size-efficient description of any software artifact or resource (mutable 
- | or immutable).
- |
- | For more information, please visit: 
- | - https://github.com/in-toto/attestation/blob/main/spec/v1/resource_descriptor.md
- */
-
-def LinkedHashMap rsd = [:]
-
-def String resourceName = ''
+def ResourceDescriptor resourceDescriptor = null
 
 def Void file(String fileName) {
 
-    resourceName = fileName
+    resourceDescriptor = new ResourceDescriptor()
 
-    def LinkedHashMap resourceDescriptor = [:]
-
-    resourceDescriptor.put('name', fileName)
-    resourceDescriptor.put('size', getFileSize())
-    resourceDescriptor.put('digest', getDigestSet())
+    resourceDescriptor
+        .name(fileName)
+        .digest(getDigestSet())
+        .addAnnotation('size', getFileSize())
+        .addAnnotation('createdAt', getCreatedAtTimestamp())
 
     if (sh(script: 'which file || echo "NotFound"', returnStdout: true).trim().toString() == 'NotFound') {
         println('`file` command not found. Skipping mediaType check.')
     } else {
-        resourceDescriptor.put('mediaType', getMediaType())
+        resourceDescriptor.mediaType(getMediaType())
     }
-    
-    resourceDescriptor.put('createdAt', getTimestamp())
-
-    rsd = resourceDescriptor
 }
 
 def LinkedHashMap getDigestSet() {
@@ -45,10 +28,6 @@ def LinkedHashMap getDigestSet() {
     ds.construct(resourceName)
 
     return ds.get()
-}
-
-def Void setDigestSet(DigestSet ds) {
-    rsd.digest = ds.get()
 }
 
 def Integer getFileSize() {
@@ -68,7 +47,7 @@ def String getMediaType() {
     ).trim().toString()
 }
 
-def String getTimestamp() {
+def String getCreatedAtTimestamp() {
 
     def Long timestamp = sh(
         label: 'Get file Birth date.',
@@ -87,14 +66,14 @@ def String getTimestamp() {
     return Timestamp.fromSeconds(timestamp)
 }
 
-def LinkedHashMap get() {
-    return rsd
+def ResourceDescriptor get() {
+    return resourceDescriptor
 }
 
 def Void print() {
-    println(JsonOutput.prettyPrint(toJson()))
+    resourceDescriptor.print()
 }
 
 def String toJson() {
-    return JsonOutput.toJson(rsd)
+    return resourceDescriptor.toJson()
 }
