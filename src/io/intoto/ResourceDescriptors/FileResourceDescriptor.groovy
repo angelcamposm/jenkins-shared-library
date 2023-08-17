@@ -82,3 +82,15 @@ def Void print() {
 def String toJson() {
     return resourceDescriptor.toJson()
 }
+
+
+def Void write(Boolean pretty = true) {
+        
+    def String payload = pretty 
+        ? JsonOutput.prettyPrint(toJson())
+        : toJson()
+
+    def String fileName = "${resourceName.replace('.', '-')}.resourceDescriptor.json"
+    
+    writeFile encoding: 'UTF-8', file: getStatementName(), text: payload
+}
