@@ -44,7 +44,7 @@ def String getInvocationId() {
 }
 
 def String getProvenanceName() {
-    return "${env.JOB_BASE_NAME}-${currentBuild.getNumber()}provenance.json"
+    return "${env.JOB_BASE_NAME}-${currentBuild.getNumber()}.provenance.json"
 }
 
 def String getStartTimestamp() {
