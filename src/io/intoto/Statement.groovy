@@ -52,5 +52,10 @@ def String toJson() {
 }
 
 def Void write() {
-    writeFile encoding: 'UTF-8', file: getStatementName(), text: statement
+        
+    def String payload = pretty 
+        ? JsonOutput.prettyPrint(toJson())
+        : toJson()
+    
+    writeFile encoding: 'UTF-8', file: getStatementName(), text: payload
 }
