@@ -1,5 +1,6 @@
 package io.intoto.ResourceDescriptors
 
+import groovy.json.JsonOutput
 import io.intoto.DigestSet
 import io.intoto.ResourceDescriptor
 import io.intoto.Timestamp
