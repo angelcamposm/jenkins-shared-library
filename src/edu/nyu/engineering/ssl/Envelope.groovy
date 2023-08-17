@@ -17,8 +17,17 @@ def Void construct() {
 }
 
 def Void addInTotoStatement(Statement statement) {
+    
+    final PAYLOAD_TYPE = 'application/vnd.in-toto+json'
+
     envelope.payload = statement.toBase64()
-    envelope.payloadType = 'application/vnd.in-toto+json'
+    envelope.payloadType = PAYLOAD_TYPE
+
+    println(getPAE(PAYLOAD_TYPE, statement.toBase64()))
+}
+
+def String getPAE(String payloadType, String payload) {
+    return "DSSEv1 ${payloadType.length()} ${payloadType} ${payload.length()} ${payload}"
 }
 
 def String getPayload() {
