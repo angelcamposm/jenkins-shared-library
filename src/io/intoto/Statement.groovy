@@ -35,6 +35,10 @@ def Void addSubject(ResourceDescriptor subject) {
     statement.subject.add(subject.get())
 }
 
+def String getStatementName() {
+    return "${env.JOB_BASE_NAME}-${currentBuild.getNumber()}.statement.json"
+}
+
 def Void print() {
     println(JsonOutput.prettyPrint(toJson()))
 }
@@ -48,5 +52,5 @@ def String toJson() {
 }
 
 def Void write() {
-    writeFile file: 'statement.json', text: toJson()
+    writeFile encoding: 'UTF-8', file: getStatementName(), text: statement
 }
