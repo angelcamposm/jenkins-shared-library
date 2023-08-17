@@ -9,9 +9,9 @@ def Void construct() {
 
     def LinkedHashMap payload = [:]
 
-    payload.add('payload', '')
-    payload.add('payloadType', '')
-    payload.add('signatures', [])
+    payload.put('payload', '')
+    payload.put('payloadType', '')
+    payload.put('signatures', [])
 
     envelope = payload
 }
@@ -24,4 +24,25 @@ def Void addInTotoStatement(Statement statement) {
 def String getPayload() {
     def byte[] decoded = envelope.payload.encoded.decodeBase64()
     return new String(decoded)
+}
+
+def Void print() {
+    println(JsonOutput.prettyPrint(toJson()))
+}
+
+def String toBase64() {
+    return toJson().bytes.encodeBase64().toString()
+}
+
+def String toJson() {
+    return JsonOutput.toJson(envelope)
+}
+
+def Void write(Boolean pretty = true) {
+        
+    def String payload = pretty 
+        ? JsonOutput.prettyPrint(toJson())
+        : toJson()
+    
+    writeFile encoding: 'UTF-8', file: "${env.JOB_BASE_NAME}-${currentBuild.getNumber()}.envelope.json", text: payload
 }
