@@ -93,5 +93,5 @@ def Void write(Boolean pretty = true) {
 
     def String fileName = "${resourceName.replace('.', '-')}.resourceDescriptor.json"
     
-    writeFile encoding: 'UTF-8', file: getStatementName(), text: payload
+    writeFile encoding: 'UTF-8', file: fileName, text: payload
 }
