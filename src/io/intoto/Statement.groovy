@@ -51,7 +51,7 @@ def String toJson() {
     return JsonOutput.toJson(statement)
 }
 
-def Void write() {
+def Void write(Boolean pretty = true) {
         
     def String payload = pretty 
         ? JsonOutput.prettyPrint(toJson())
