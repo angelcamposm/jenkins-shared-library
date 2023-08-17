@@ -5,7 +5,7 @@ This Jenkins Shared Library is a MVP of a SLSA Provenance and in-toto attestatio
 
 ## Jenkinsfile
 
-```jenkinsfile
+```groovy
 @Library('pipeline-library@master') _ 
 
 // Import stateful classes from Jenkins shared library
