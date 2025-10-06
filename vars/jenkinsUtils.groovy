@@ -17,20 +17,19 @@ def updateWorkflowJobDescription() {
 }
 
 private Map getProjectData() {
-    def projectData
-
     // Check for pom.xml, then composer.json, then fall back to package.json
-    if (fileExists('pom.xml')) {
-        projectData = getProjectDataFromPomXml()
-    } else if (fileExists('composer.json')) {
-        projectData = getProjectDataFromComposerJson()
-    } else if (fileExists('package.json')) {
-        projectData = getProjectDataFromPackageJson()
-    } else {
-        error "Neither pom.xml, composer.json, nor package.json found in the current workspace."
+    switch (true) {
+        case fileExists('composer.json'):
+            return getProjectDataFromComposerJson()
+        case fileExists('composer.json') && fileExists('package.json'):
+            return getProjectDataFromComposerJson()
+        case fileExists('package.json'):
+            return getProjectDataFromPackageJson()
+        case fileExists('pom.xml'):
+            return getProjectDataFromPomXml()
+        default:
+            error('Neither pom.xml, composer.json, nor package.json found in the current workspace.')
     }
-
-    return projectData
 }
 
 private Map getProjectDataFromComposerJson() {
