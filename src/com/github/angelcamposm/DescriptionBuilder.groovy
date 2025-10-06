@@ -19,7 +19,12 @@ class DescriptionBuilder {
     String buildHtmlTable() {
 
         def table = new StringBuilder()
-        table.append('<table class=\\"project-details\\">')
+        table.append('<table class="jenkins-table">')
+        table.append('<thead>')
+        table.append('<tr>')
+        table.append('<td colspan="2">&nbsp;</td>')
+        table.append('</tr>')
+        table.append('</thead>')
 
         // Table Rows using normalized projectData
         addRow(table, "Project Name", projectData.name)
