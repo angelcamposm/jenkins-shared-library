@@ -22,8 +22,8 @@ def updateWorkflowJobDescription() {
             curl \
                 --verbose \
                 --request POST \
-                --url ${env.JENKINS_URL}/job/${env.JOB_NAME}/config.xml \
-                --user ${JENKINS_USER}:${JENKINS_API_TOKEN} \
+                --url ${env.JENKINS_URL}job/${env.JOB_NAME}/config.xml \
+                --user \${JENKINS_USER}:\${JENKINS_API_TOKEN} \
                 --data-urlencode "description=${descriptionHtml}"
             """
     }
