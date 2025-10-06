@@ -41,7 +41,7 @@ class DescriptionBuilder {
 
     private static void addRow(StringBuilder table, String key, Object value) {
         table.append("<tr>")
-        table.append("<th>${key}</th>")
+        table.append("<td>${key}</td>")
         table.append("<td>${value ?: 'N/A'}</td>")
         table.append("</tr>")
     }
