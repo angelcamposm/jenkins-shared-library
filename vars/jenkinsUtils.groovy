@@ -2,6 +2,8 @@ import com.github.angelcamposm.DescriptionBuilder
 
 /**
  * Updates the current Jenkins job's description with details from pom.xml, composer.json, or package.json.
+ *
+ * @requires Pipeline Utility Steps (pipeline-utility-steps)
  */
 def updateWorkflowJobDescription() {
 
@@ -18,7 +20,7 @@ def updateWorkflowJobDescription() {
         sh label: '[Jenkins] Update WorkflowJob description',
             script: """
             curl \
-                --silent \
+                --verbose \
                 --request POST \
                 --url ${env.JENKINS_URL}/job/${env.JOB_NAME}/config.xml \
                 --user ${JENKINS_USER}:${JENKINS_API_TOKEN} \
