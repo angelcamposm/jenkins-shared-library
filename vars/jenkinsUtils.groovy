@@ -13,7 +13,7 @@ def updateWorkflowJobDescription() {
     def builder = new DescriptionBuilder(projectData)
     def descriptionHtml = builder.buildHtmlTable()
 
-    currentBuild.rawBuild.project.setDisplayName(descriptionHtml)
+    currentBuild.rawBuild.project.description(descriptionHtml)
 
     // Use Jenkins credentials for the API token
 //    withCredentials([usernamePassword(credentialsId: 'jenkins-api-token', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_API_TOKEN')]) {
