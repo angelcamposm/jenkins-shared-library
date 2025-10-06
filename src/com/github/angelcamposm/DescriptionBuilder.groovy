@@ -74,7 +74,7 @@ class DescriptionBuilder {
 
         return licenses.collect { license ->
             if (license instanceof String) {
-                return '<a class="jenkins-table__link" href="https://opensource.org/licenses/' + license + ' " target="_blank">' + license + '</a>'
+                return '<a class="jenkins-table__link" href="https://opensource.org/licenses/' + license.toLowerCase() + ' " target="_blank">' + license + '</a>'
 //                return license // Handles simple string from package.json or composer.json
             }
             if (license instanceof Map) {
