@@ -58,9 +58,8 @@ class DescriptionBuilder {
             }
             if (author instanceof Map) {
                 def name = author.name ?: author.id ?: 'N/A' // pom.xml uses name or id
-//                def email = author.email ? " &lt;${author.email}&gt;" : ""
-                def email = author.email ? '<a class="jenkins-table__link" href="mailto:' + author.email + '" target="_blank">&lt;' + author.email + '&gt;</a>' : ''
-                return "${name}${email}"
+                def email = author.email ?: ""
+                return '<a class="jenkins-table__link" href="mailto:' + email + '" target="_blank">' + "${name} &lt;${email}&gt;" + '</a>'
             }
             return 'N/A'
         }.join('<br>')
