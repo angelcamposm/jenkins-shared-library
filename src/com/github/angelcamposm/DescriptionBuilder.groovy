@@ -80,7 +80,7 @@ class DescriptionBuilder {
 
     private static String formatFramework(Map framework) {
         if (framework == null || !framework.version) return 'N/A'
-        def version = framework.version.replaceAll('~|\^', '')
+        def version = framework.version.replaceAll('~|\\^', '')
         return "${framework.name}: ${version}"
     }
 
