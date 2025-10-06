@@ -1,15 +1,23 @@
-updateWorkflowJobDescription()
+<h3><code>updateWorkflowJobDescription()</code></h3>
 
-Automatically updates the current Jenkins job's description with metadata from the project's descriptor file.
+<p>
+    Automatically updates the current Jenkins job's description with metadata from the project's descriptor file.
+</p>
 
-This step searches the workspace for a project descriptor file in the following order of precedence: `composer.json`, `package.json`, and finally `pom.xml`. It uses the first file it finds to extract project details like name, version, description, authors, licenses, and repository URL.
+<p>
+    This step searches the workspace for a project descriptor file in the following order of precedence: <code>composer.json</code>, <code>package.json</code>, and finally <code>pom.xml</code>. It uses the first file it finds to extract project details like <em>name</em>, <em>version</em>, <em>description</em>, <em>authors</em>, <em>licenses</em>, and <em>repository URL</em>.
+</p>
 
-The extracted information is then formatted into an HTML table and set as the description for the current job, making project details easily visible on the Jenkins job page. If none of the supported descriptor files are found in the workspace, the pipeline will fail with an error.
+<p>
+    The extracted information is then formatted into an HTML table and set as the description for the current job, making project details easily visible on the Jenkins job page. If none of the supported descriptor files are found in the workspace, the pipeline will fail with an error.
+</p>
 
-This step requires the "Pipeline Utility Steps" (pipeline-utility-steps) plugin to be installed on your Jenkins controller to read `pom.xml` and `*.json` files.
+<p>
+    This step requires the <strong>"Pipeline Utility Steps"</strong> (<code>pipeline-utility-steps</code>) plugin to be installed on your Jenkins controller to read <code>pom.xml</code> and <code>*.json</code> files.
+</p>
 
-Example:
-// Jenkinsfile
+<h4>Example:</h4>
+<pre><code>// Jenkinsfile
 @Library('jenkins-shared-library.github@main') _
 
 pipeline {
@@ -27,3 +35,4 @@ pipeline {
         // ... other stages
     }
 }
+</code></pre>
