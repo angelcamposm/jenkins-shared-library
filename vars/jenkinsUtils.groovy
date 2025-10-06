@@ -1,5 +1,4 @@
 import com.github.angelcamposm.DescriptionBuilder
-import org.opensource.LicenseLink
 
 /**
  * Updates the current Jenkins job's description with details from pom.xml, composer.json, or package.json.
@@ -50,7 +49,7 @@ private Map getProjectDataFromComposerJson() {
     ]
 }
 
-private Map getFrameworkFromComposer(Map require) {
+private static Map getFrameworkFromComposer(Map require) {
     if (!require) return null
 
     def frameworks = [
@@ -89,8 +88,8 @@ private Map getProjectDataFromPackageJson() {
     ]
 }
 
-private Map getFrameworkFromPackage(Map dependencies, Map devDependencies) {
-    def deps = [:].plus(dependencies ?: [:]).plus(devDependencies ?: [:])
+private static Map getFrameworkFromPackage(Map dependencies, Map devDependencies) {
+    def deps = ([:] + (dependencies ?: [:])) + (devDependencies ?: [:])
     if (deps.isEmpty()) return null
 
     def frameworks = [
@@ -177,7 +176,7 @@ private Map getFrameworkFromPom(def pom) {
  * Helper to extract the Java version from a Maven POM object.
  * It checks common properties in a specific order.
  */
-private String getJavaVersionFromPom(def pom) {
+private static String getJavaVersionFromPom(def pom) {
     if (! pom.properties) return null
 
     // Check for common properties used to define the Java version
