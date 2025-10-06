@@ -17,7 +17,7 @@ class DescriptionBuilder {
     String buildHtmlTable() {
 
         def table = new StringBuilder()
-        table.append('<table class="jenkins-table">')
+        table.append('<table class="jenkins-table jenkins-table--medium">')
         table.append('<thead>')
         table.append('<tr>')
         table.append('<td colspan="2">&nbsp;</td>')
@@ -29,6 +29,7 @@ class DescriptionBuilder {
         addRow(table, "Version", projectData.version)
         addRow(table, "Description", projectData.description)
         addRow(table, "Engine / Platform", formatEngine(projectData.engine))
+        addRow(table, "Framework", formatFramework(projectData.framework))
         addRow(table, "Author(s)", formatAuthors(projectData.authors))
         addRow(table, "License(s)", formatLicenses(projectData.licenses))
         addRow(table, "Repository", formatRepository(projectData.repository))
@@ -69,13 +70,18 @@ class DescriptionBuilder {
         }.join('<br>')
     }
 
-    // --- NEW METHOD ---
     /**
      * Formats the engine information for display.
      */
     private static String formatEngine(Map engine) {
         if (engine == null || !engine.version) return 'N/A'
         return "${engine.type}: ${engine.version}"
+    }
+
+    private static String formatFramework(Map framework) {
+        if (framework == null || !framework.version) return 'N/A'
+        def version = framework.version.replaceAll('~|\^', '')
+        return "${framework.name}: ${version}"
     }
 
     /**

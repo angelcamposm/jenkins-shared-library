@@ -44,8 +44,29 @@ private Map getProjectDataFromComposerJson() {
         // Use support.source or homepage for the repository URL
         repository : [url: composerJson.support?.source ?: composerJson.homepage],
         // Extract PHP version
-        engine     : [type: 'PHP', version: composerJson.require?.php]
+        engine     : [type: 'PHP', version: composerJson.require?.php],
+        framework  : getFrameworkFromComposer(composerJson.require)
     ]
+}
+
+private Map getFrameworkFromComposer(Map require) {
+    if (!require) return null
+
+    def frameworks = [
+        'laravel/framework': 'Laravel',
+        'symfony/symfony': 'Symfony',
+        'laminas/laminas-mvc': 'Laminas',
+        'cakephp/cakephp': 'CakePHP',
+        'yiisoft/yii2': 'Yii 2'
+    ]
+
+    for (dep in frameworks.keySet()) {
+        if (require[dep]) {
+            return [name: frameworks[dep], version: require[dep]]
+        }
+    }
+
+    return null
 }
 
 private Map getProjectDataFromPackageJson() {
@@ -62,8 +83,31 @@ private Map getProjectDataFromPackageJson() {
         licenses   : [packageJson.license].flatten().findAll { it != null },
         repository : packageJson.repository,
         // Extract Node.js version
-        engine     : [type: 'Node.js', version: packageJson.engines?.node]
+        engine     : [type: 'Node.js', version: packageJson.engines?.node],
+        framework  : getFrameworkFromPackage(packageJson.dependencies, packageJson.devDependencies)
     ]
+}
+
+private Map getFrameworkFromPackage(Map dependencies, Map devDependencies) {
+    def deps = [:].plus(dependencies ?: [:]).plus(devDependencies ?: [:])
+    if (deps.isEmpty()) return null
+
+    def frameworks = [
+        '@angular/core': 'Angular',
+        'react': 'React',
+        'vue': 'Vue',
+        'next': 'Next.js',
+        'nuxt': 'Nuxt.js',
+        '@sveltejs/kit': 'SvelteKit'
+    ]
+
+    for (dep in frameworks.keySet()) {
+        if (deps[dep]) {
+            return [name: frameworks[dep], version: deps[dep]]
+        }
+    }
+
+    return null
 }
 
 private Map getProjectDataFromPomXml() {
@@ -79,8 +123,53 @@ private Map getProjectDataFromPomXml() {
         licenses   : pom.licenses ?: [],
         repository : pom.scm,
         // Extract Java version
-        engine     : [type: 'Java', version: getJavaVersionFromPom(pom)]
+        engine     : [type: 'Java', version: getJavaVersionFromPom(pom)],
+        framework  : getFrameworkFromPom(pom)
     ]
+}
+
+private Map getFrameworkFromPom(def pom) {
+    if (!pom.dependencies) return null
+
+    def frameworks = [
+        'spring-boot-starter-web': 'Spring Boot',
+        'quarkus-resteasy': 'Quarkus',
+        'micronaut-http-server': 'Micronaut',
+        'jakarta.platform': 'Jakarta EE',
+        'primefaces': 'PrimeFaces'
+    ]
+
+    for (dep in pom.dependencies) {
+        def artifactId = dep.getArtifactId()
+        if (frameworks.containsKey(artifactId)) {
+            def version = dep.getVersion()
+            if (version) {
+                return [name: frameworks[artifactId], version: version]
+            }
+
+            // If version is not found, try to find it in the parent pom
+            if (pom.parent) {
+                def parentPomPath = pom.parent.relativePath
+                if (parentPomPath == null) {
+                    parentPomPath = '../pom.xml'
+                }
+
+                if (fileExists(parentPomPath)) {
+                    def parentPom = readMavenPom file: parentPomPath
+                    if (parentPom.dependencyManagement) {
+                        for (managedDep in parentPom.dependencyManagement.dependencies) {
+                            if (managedDep.getGroupId() == dep.getGroupId() && managedDep.getArtifactId() == dep.getArtifactId()) {
+                                return [name: frameworks[artifactId], version: managedDep.getVersion()]
+                            }
+                        }
+                    }
+                }
+            }
+            return [name: frameworks[artifactId], version: 'managed by parent']
+        }
+    }
+
+    return null
 }
 
 /**
