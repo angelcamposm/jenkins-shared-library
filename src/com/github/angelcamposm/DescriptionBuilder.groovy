@@ -107,7 +107,7 @@ class DescriptionBuilder {
         def displayUrl = url.replace("git+", "").replace(".git", "")
 
         if (displayUrl.startsWith('http')) {
-            return '<a href=\\"' + displayUrl + '\\" target=\\"_blank\\">' + displayUrl + '</a>'
+            return '<a class="jenkins-table__link" href="' + displayUrl + '" target="_blank">' + displayUrl + '</a>'
         }
         return displayUrl
     }
