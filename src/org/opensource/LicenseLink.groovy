@@ -9,6 +9,22 @@ class LicenseLink {
     }
 
     static String fromLicense(String license) {
-        '<a class="jenkins-table__link" href="' + buildLicenseUrl(license) + ' " target="_blank">' + license + '</a>'
+        return '<a class="jenkins-table__link" href="' + buildLicenseUrl(license) + ' " target="_blank">' + license + '</a>'
+    }
+
+    static String fromLicenseWithUrl(String license, String url) {
+        return '<a class="jenkins-table__link" href="' + url + ' " target="_blank">' + license + '</a>'
+    }
+
+    static String fromLicense(Map license) {
+
+        def name = license.name ?: 'N/A' // pom.xml uses name
+        def url = license.url
+
+        if (url) {
+            return fromLicenseWithUrl(name.toString(), url.toString())
+        }
+
+        return fromLicense(name.toString())
     }
 }

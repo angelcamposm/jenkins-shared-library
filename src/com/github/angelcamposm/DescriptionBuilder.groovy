@@ -94,17 +94,8 @@ class DescriptionBuilder {
         if (licenses == null || licenses.isEmpty()) return 'N/A'
 
         return licenses.collect { license ->
-
             if (license instanceof String) return LicenseLink.fromLicense(license)
-
-            if (license instanceof Map) {
-                def name = license.name ?: 'N/A' // pom.xml uses name
-                def url = license.url
-                if (url) {
-                    return '<a class="jenkins-table__link" href="' + url + ' " target="_blank">' + name + '</a>'
-                }
-                return name
-            }
+            if (license instanceof Map) return LicenseLink.fromLicense(license)
             return 'N/A'
         }.join('<br>')
     }
