@@ -6,7 +6,6 @@ import com.github.angelcamposm.DescriptionBuilder
  * @requires Pipeline Utility Steps (pipeline-utility-steps)
  */
 def updateWorkflowJobDescription() {
-
     def projectData = getProjectData()
 
     // Instantiate the helper class with the normalized data
@@ -17,11 +16,9 @@ def updateWorkflowJobDescription() {
 }
 
 private Map getProjectData() {
-    // Check for pom.xml, then composer.json, then fall back to package.json
+    // The order of cases determines the precedence: composer.json > package.json > pom.xml
     switch (true) {
         case fileExists('composer.json'):
-            return getProjectDataFromComposerJson()
-        case fileExists('composer.json') && fileExists('package.json'):
             return getProjectDataFromComposerJson()
         case fileExists('package.json'):
             return getProjectDataFromPackageJson()
@@ -37,14 +34,15 @@ private Map getProjectDataFromComposerJson() {
 
     // Normalize data from composer.json into a standard map
     return [
-        name: composerJson.name,
-        version: composerJson.version ?: 'N/A', // Version is often not in composer.json
-        description: composerJson.description,
-        authors: composerJson.authors,
-        // License can be a string or an array, so we flatten it into a list
-        licenses: [composerJson.license].flatten().findAll { it != null },
-        // Use support.source or homepage for the repository URL
-        repository: [url: composerJson.support?.source ?: composerJson.homepage]
+            name: composerJson.name ?: 'N/A',
+            version: composerJson.version ?: 'N/A',
+            description: composerJson.description ?: '',
+            // Ensure authors is always a list
+            authors: [composerJson.authors].flatten().findAll { it != null },
+            // License can be a string or an array, flatten to handle both
+            licenses: [composerJson.license].flatten().findAll { it != null },
+            // Use support.source or homepage for the repository URL
+            repository: [url: composerJson.support?.source ?: composerJson.homepage]
     ]
 }
 
@@ -52,13 +50,14 @@ private Map getProjectDataFromPackageJson() {
     def packageJson = readJSON file: 'package.json'
 
     // Normalize data from package.json into the same standard map
-    // Wrap author and license in lists for consistent processing
     return [
-            name: packageJson.name,
-            version: packageJson.version,
-            description: packageJson.description,
-            authors: [packageJson.author].findAll { it != null },
-            licenses: [packageJson.license].findAll { it != null },
+            name: packageJson.name ?: 'N/A',
+            version: packageJson.version ?: 'N/A',
+            description: packageJson.description ?: '',
+            // Ensure author is always a list, even if it's a single string/object
+            authors: [packageJson.author].flatten().findAll { it != null },
+            // Ensure license is always a list
+            licenses: [packageJson.license].flatten().findAll { it != null },
             repository: packageJson.repository
     ]
 }
@@ -68,11 +67,12 @@ private Map getProjectDataFromPomXml() {
 
     // Normalize data from pom.xml into a standard map
     return [
-        name: pom.getName() ?: pom.getArtifactId(),
-        version: pom.getVersion(),
-        description: pom.description,
-        authors: pom.developers,
-        licenses: pom.licenses,
-        repository: pom.scm
+            name: pom.getName() ?: pom.getArtifactId() ?: 'N/A',
+            version: pom.getVersion() ?: 'N/A',
+            description: pom.description ?: '',
+            // Ensure authors and licenses are always lists
+            authors: pom.developers ?: [],
+            licenses: pom.licenses ?: [],
+            repository: pom.scm
     ]
 }
