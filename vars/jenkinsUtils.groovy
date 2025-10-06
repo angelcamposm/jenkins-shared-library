@@ -16,19 +16,19 @@ def updateWorkflowJobDescription() {
     currentBuild.rawBuild.project.setDisplayName(descriptionHtml)
 
     // Use Jenkins credentials for the API token
-    withCredentials([usernamePassword(credentialsId: 'jenkins-api-token', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_API_TOKEN')]) {
-
-        // Use shell to execute a curl command to update the job description
-        sh label: '[Jenkins] Update WorkflowJob description',
-            script: """
-            curl \
-                --verbose \
-                --request POST \
-                --url ${env.JENKINS_URL}job/${env.JOB_NAME}/config.xml \
-                --user \${JENKINS_USER}:\${JENKINS_API_TOKEN} \
-                --data-urlencode "description=${descriptionHtml}"
-            """
-    }
+//    withCredentials([usernamePassword(credentialsId: 'jenkins-api-token', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_API_TOKEN')]) {
+//
+//        // Use shell to execute a curl command to update the job description
+//        sh label: '[Jenkins] Update WorkflowJob description',
+//            script: """
+//            curl \
+//                --verbose \
+//                --request POST \
+//                --url ${env.JENKINS_URL}job/${env.JOB_NAME}/config.xml \
+//                --user \${JENKINS_USER}:\${JENKINS_API_TOKEN} \
+//                --data-urlencode "description=${descriptionHtml}"
+//            """
+//    }
 
     echo "Successfully updated the job description."
 }
