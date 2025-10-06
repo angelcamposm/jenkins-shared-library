@@ -69,11 +69,12 @@ class DescriptionBuilder {
      * Formats a list of licenses into clickable links if a URL is provided.
      */
     private static String formatLicenses(List licenses) {
+
         if (licenses == null || licenses.isEmpty()) return 'N/A'
 
         return licenses.collect { license ->
             if (license instanceof String) {
-                return '<a class="jenkins-table__link" href="https://opensource.org/licenses/' + name + ' " target="_blank">' + name + '</a>'
+                return '<a class="jenkins-table__link" href="https://opensource.org/licenses/' + license + ' " target="_blank">' + license + '</a>'
 //                return license // Handles simple string from package.json or composer.json
             }
             if (license instanceof Map) {
