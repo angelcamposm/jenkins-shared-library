@@ -74,7 +74,7 @@ class DescriptionBuilder {
         return licenses.collect { license ->
             if (license instanceof String) {
                 return '<a class="jenkins-table__link" href="https://opensource.org/licenses/' + name + ' " target="_blank">' + name + '</a>'
-                return license // Handles simple string from package.json or composer.json
+//                return license // Handles simple string from package.json or composer.json
             }
             if (license instanceof Map) {
                 def name = license.name ?: 'N/A' // pom.xml uses name
