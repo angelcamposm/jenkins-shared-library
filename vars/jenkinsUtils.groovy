@@ -1,4 +1,5 @@
 import com.github.angelcamposm.DescriptionBuilder
+import org.opensource.LicenseLink
 
 /**
  * Updates the current Jenkins job's description with details from pom.xml, composer.json, or package.json.

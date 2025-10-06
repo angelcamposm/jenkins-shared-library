@@ -1,5 +1,7 @@
 package com.github.angelcamposm
 
+import org.opensource.LicenseLink
+
 class DescriptionBuilder {
 
     private static final long serialVersionUID = 1L
@@ -92,10 +94,9 @@ class DescriptionBuilder {
         if (licenses == null || licenses.isEmpty()) return 'N/A'
 
         return licenses.collect { license ->
-            if (license instanceof String) {
-                return '<a class="jenkins-table__link" href="https://opensource.org/licenses/' + license.toLowerCase() + ' " target="_blank">' + license + '</a>'
-//                return license // Handles simple string from package.json or composer.json
-            }
+
+            if (license instanceof String) return LicenseLink.fromLicense(license)
+
             if (license instanceof Map) {
                 def name = license.name ?: 'N/A' // pom.xml uses name
                 def url = license.url
