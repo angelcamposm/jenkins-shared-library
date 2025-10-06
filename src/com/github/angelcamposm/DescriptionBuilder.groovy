@@ -22,7 +22,9 @@ class DescriptionBuilder {
         table.append('<table class="jenkins-table jenkins-table--medium">')
         table.append('<thead>')
         table.append('<tr>')
-        table.append('<td colspan="2">&nbsp;</td>')
+        table.append('<td colspan="2">')
+        table.append('<b>Project Details</b>')
+        table.append('</td>')
         table.append('</tr>')
         table.append('</thead>')
 
