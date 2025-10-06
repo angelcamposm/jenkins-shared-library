@@ -17,8 +17,9 @@
 </p>
 
 <h4>Example:</h4>
-<pre><code>// Jenkinsfile
-@Library('jenkins-shared-library.github@main') _
+<pre><code>
+// Jenkinsfile
+@Library('jenkins-shared-library@v1.0.0') _
 
 pipeline {
     agent any

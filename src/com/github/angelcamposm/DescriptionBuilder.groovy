@@ -1,7 +1,5 @@
 package com.github.angelcamposm
 
-import groovy.json.JsonOutput
-
 class DescriptionBuilder {
 
     private static final long serialVersionUID = 1L
@@ -30,6 +28,7 @@ class DescriptionBuilder {
         addRow(table, "Project Name", projectData.name)
         addRow(table, "Version", projectData.version)
         addRow(table, "Description", projectData.description)
+        addRow(table, "Engine / Platform", formatEngine(projectData.engine))
         addRow(table, "Author(s)", formatAuthors(projectData.authors))
         addRow(table, "License(s)", formatLicenses(projectData.licenses))
         addRow(table, "Repository", formatRepository(projectData.repository))
@@ -68,6 +67,15 @@ class DescriptionBuilder {
             }
             return 'N/A'
         }.join('<br>')
+    }
+
+    // --- NEW METHOD ---
+    /**
+     * Formats the engine information for display.
+     */
+    private static String formatEngine(Map engine) {
+        if (engine == null || !engine.version) return 'N/A'
+        return "${engine.type}: ${engine.version}"
     }
 
     /**
