@@ -79,7 +79,7 @@ class DescriptionBuilder {
                 def name = license.name ?: 'N/A' // pom.xml uses name
                 def url = license.url
                 if (url) {
-                    return '<a href=\\"' + url + ' \\" target=\\"_blank\\">${name}</a>'
+                    return '<a class="jenkins-table__link" href="' + url + ' " target="_blank">' + name + '</a>'
                 }
                 return name
             }
