@@ -19,7 +19,7 @@ class DescriptionBuilder {
     String buildHtmlTable() {
 
         def table = new StringBuilder()
-        table.append("<table class='project-details'>")
+        table.append("<table class=\"project-details\">")
 
         // Table Rows using normalized projectData
         addRow(table, "Project Name", projectData.name)
@@ -74,7 +74,7 @@ class DescriptionBuilder {
                 def name = license.name ?: 'N/A' // pom.xml uses name
                 def url = license.url
                 if (url) {
-                    return "<a href='${url}' target='_blank'>${name}</a>"
+                    return "<a href=\"${url}\" target=\"_blank\">${name}</a>"
                 }
                 return name
             }
@@ -102,7 +102,7 @@ class DescriptionBuilder {
         def displayUrl = url.replace("git+", "").replace(".git", "")
 
         if (displayUrl.startsWith('http')) {
-            return "<a href='${displayUrl}' target='_blank'>${displayUrl}</a>"
+            return "<a href=\"${displayUrl}\" target=\"_blank\">${displayUrl}</a>"
         }
         return displayUrl
     }
