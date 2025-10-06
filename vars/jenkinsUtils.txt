@@ -1,0 +1,29 @@
+updateWorkflowJobDescription()
+
+Automatically updates the current Jenkins job's description with metadata from the project's descriptor file.
+
+This step searches the workspace for a project descriptor file in the following order of precedence: `composer.json`, `package.json`, and finally `pom.xml`. It uses the first file it finds to extract project details like name, version, description, authors, licenses, and repository URL.
+
+The extracted information is then formatted into an HTML table and set as the description for the current job, making project details easily visible on the Jenkins job page. If none of the supported descriptor files are found in the workspace, the pipeline will fail with an error.
+
+This step requires the "Pipeline Utility Steps" (pipeline-utility-steps) plugin to be installed on your Jenkins controller to read `pom.xml` and `*.json` files.
+
+Example:
+// Jenkinsfile
+@Library('jenkins-shared-library.github@main') _
+
+pipeline {
+    agent any
+    stages {
+        stage('Update Job Description') {
+            steps {
+                script {
+                    // This will read from pom.xml, composer.json, or package.json
+                    // and update the job's description page.
+                    jenkinsUtils.updateWorkflowJobDescription()
+                }
+            }
+        }
+        // ... other stages
+    }
+}

@@ -10,7 +10,7 @@ def updateWorkflowJobDescription() {
 
     // Instantiate the helper class with the normalized data
     def builder = new DescriptionBuilder(projectData)
-    def descriptionHtml = builder.buildHtmlTable()
+    String descriptionHtml = builder.buildHtmlTable()
 
     currentBuild.rawBuild.project.setDescription(descriptionHtml)
 }
